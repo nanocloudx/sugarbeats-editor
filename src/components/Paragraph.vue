@@ -48,6 +48,9 @@ export default {
     formatMarkdown () {
       return `${this.text}`
     }
+  },
+  mounted () {
+    this.update()
   }
 }
 </script>
