@@ -2,14 +2,17 @@
   <div class="line">
     <div class="controller">
       <p>
-        Heading2
+        Link
         <button @click="moveUpSection(id)">↑</button>
         <button @click="removeSection(id)">x</button>
         <button @click="moveDownSection(id)">↓</button>
       </p>
     </div>
     <div class="editor">
-      <p><label><input type="text" v-model="text" @keyup="update"></label></p>
+      <p>
+        <label>Url<input type="text" v-model="url" @keyup="update"></label>
+        <label>Text<input type="text" v-model="text" @keyup="update"></label>
+      </p>
     </div>
   </div>
 </template>
@@ -18,11 +21,12 @@
 import { mapActions } from 'vuex'
 
 export default {
-  name: 'Heading2',
+  name: 'LinkElement',
   props: ['id'],
   data () {
     return {
-      text: ''
+      text: '',
+      url: ''
     }
   },
   methods: {
@@ -37,16 +41,17 @@ export default {
         id: this.id,
         context: {
           text: this.text,
+          url: this.url,
           html: this.formatHtml(),
           markdown: this.formatMarkdown()
         }
       })
     },
     formatHtml () {
-      return `<h2>${this.text}</h2>`
+      return `<p><a href="${this.url}">${this.text}</a></p>`
     },
     formatMarkdown () {
-      return `## ${this.text}`
+      return `[${this.text}](${this.url})`
     }
   },
   mounted () {

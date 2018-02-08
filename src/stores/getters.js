@@ -9,7 +9,7 @@ export default {
   getMarkdown: state => {
     let result = ''
     state.sectionList.forEach(section => {
-      result += `${section.context.markdown}\n`
+      result += `${section.context.markdown}\n\n`
     })
     return result
   },

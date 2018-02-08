@@ -2,14 +2,17 @@
   <div class="line">
     <div class="controller">
       <p>
-        Paragraph
+        Image
         <button @click="moveUpSection(id)">↑</button>
         <button @click="removeSection(id)">x</button>
         <button @click="moveDownSection(id)">↓</button>
       </p>
     </div>
     <div class="editor">
-      <p><label><textarea v-model="text" @keyup="update"></textarea></label></p>
+      <p>
+        <label>Url<input type="text" v-model="url" @keyup="update"></label>
+        <label>Alternate<input type="text" v-model="alt" @keyup="update"></label>
+      </p>
     </div>
   </div>
 </template>
@@ -18,11 +21,12 @@
 import { mapActions } from 'vuex'
 
 export default {
-  name: 'Paragraph',
+  name: 'ImageElement',
   props: ['id'],
   data () {
     return {
-      text: ''
+      url: '',
+      alt: ''
     }
   },
   methods: {
@@ -36,17 +40,18 @@ export default {
       this.updateSection({
         id: this.id,
         context: {
-          text: this.text,
+          url: this.url,
+          alt: this.alt,
           html: this.formatHtml(),
           markdown: this.formatMarkdown()
         }
       })
     },
     formatHtml () {
-      return `<p>${this.text}</p>`
+      return `<img src="${this.url}" alt="${this.alt}">`
     },
     formatMarkdown () {
-      return `${this.text}`
+      return `![${this.alt}](${this.url})`
     }
   },
   mounted () {

@@ -2,7 +2,7 @@
   <div class="line">
     <div class="controller">
       <p>
-        Heading1
+        Heading2
         <button @click="moveUpSection(id)">↑</button>
         <button @click="removeSection(id)">x</button>
         <button @click="moveDownSection(id)">↓</button>
@@ -18,7 +18,7 @@
 import { mapActions } from 'vuex'
 
 export default {
-  name: 'Heading1',
+  name: 'Heading2Element',
   props: ['id'],
   data () {
     return {
@@ -43,10 +43,10 @@ export default {
       })
     },
     formatHtml () {
-      return `<h1>${this.text}</h1>`
+      return `<h2>${this.text}</h2>`
     },
     formatMarkdown () {
-      return `# ${this.text}`
+      return `## ${this.text}`
     }
   },
   mounted () {

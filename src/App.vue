@@ -1,8 +1,9 @@
 <template>
   <div id="app">
-    <h1>しゅごいえでぃたー</h1>
+    <h1>しゅごいえでぃたー(実装中)</h1>
     <div>
       <h2>Editor</h2>
+      <append-buttons @add="addSection" />
       <template v-for="section in sectionList">
         <component
           :is="section.type"
@@ -10,20 +11,10 @@
           :id="section.id"
         />
       </template>
-      <div>
-        <button @click="addSection('Heading1')">Heading1</button>
-        <button @click="addSection('Heading2')">Heading2</button>
-        <button @click="addSection('Paragraph')">Paragraph</button>
-      </div>
     </div>
     <div>
       <h2>Preview</h2>
-      <div>
-        <button @click="updatePreviewTarget('RENDER')">Render</button>
-        <button @click="updatePreviewTarget('HTML')">HTML</button>
-        <button @click="updatePreviewTarget('MARKDOWN')">Markdown</button>
-        <button @click="updatePreviewTarget('JSON')">JSON</button>
-      </div>
+      <preview-buttons @preview="updatePreviewTarget" />
       <div v-show="previewTarget === 'RENDER'">
         <div class="previewRender" v-html="getHtml"></div>
       </div>
@@ -42,16 +33,30 @@
 
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex'
-import Heading1 from './components/Heading1.vue'
-import Heading2 from './components/Heading2.vue'
-import Paragraph from './components/Paragraph.vue'
+import AppendButtons from './components/AppendButtons'
+import PreviewButtons from './components/PreviewButtons'
+import Heading1Element from './components/elements/Heading1Element'
+import Heading2Element from './components/elements/Heading2Element'
+import Heading3Element from './components/elements/Heading3Element'
+import ParagraphElement from './components/elements/ParagraphElement'
+import LinkElement from './components/elements/LinkElement'
+import OrderedListElement from './components/elements/OrderedListElement'
+import UnorderedListElement from './components/elements/UnorderedListElement'
+import ImageElement from './components/elements/ImageElement'
 
 export default {
   name: 'app',
   components: {
-    Heading1,
-    Heading2,
-    Paragraph
+    AppendButtons,
+    PreviewButtons,
+    Heading1Element,
+    Heading2Element,
+    Heading3Element,
+    ParagraphElement,
+    LinkElement,
+    OrderedListElement,
+    UnorderedListElement,
+    ImageElement
   },
   computed: {
     ...mapState([
