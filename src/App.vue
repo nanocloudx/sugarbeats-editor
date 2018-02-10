@@ -15,7 +15,7 @@
     <div>
       <h2>Preview</h2>
       <preview-buttons @preview="updatePreviewTarget" />
-      <div v-show="previewTarget === 'RENDER'">
+      <div v-show="previewTarget === 'BROWSER'">
         <div class="previewRender" v-html="getHtml"></div>
       </div>
       <div v-show="previewTarget === 'HTML'">
@@ -79,6 +79,11 @@ export default {
 </script>
 
 <style>
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 #app {
   font-family: Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

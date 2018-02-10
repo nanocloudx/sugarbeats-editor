@@ -1,4 +1,4 @@
 export default {
-  previewTarget: 'RENDER',
+  previewTarget: 'BROWSER',
   sectionList: []
 }

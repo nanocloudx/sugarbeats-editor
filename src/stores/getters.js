@@ -15,5 +15,8 @@ export default {
   },
   getJSON: state => {
     return JSON.stringify(state.sectionList, null, 4)
+  },
+  getSectionById: state => (id) => {
+    return state.sectionList.find(el => el.id === id)
   }
 }

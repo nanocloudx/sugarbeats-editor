@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button @click="preview('RENDER')">
+    <button @click="preview('BROWSER')">
       <i class="fas fa-window-maximize"></i>
       <span>Browser</span>
     </button>

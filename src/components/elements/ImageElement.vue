@@ -1,40 +1,42 @@
 <template>
-  <div class="line">
-    <div class="controller">
-      <p>
-        Image
-        <button @click="moveUpSection(id)">↑</button>
-        <button @click="removeSection(id)">x</button>
-        <button @click="moveDownSection(id)">↓</button>
-      </p>
-    </div>
-    <div class="editor">
-      <p>
-        <label>Url<input type="text" v-model="url" @keyup="update"></label>
-        <label>Alternate<input type="text" v-model="alt" @keyup="update"></label>
-      </p>
-    </div>
+  <div>
+    <element-icon :faName="'image'" />
+    <element-controller :id="id" />
+    <element-input-text :name="'ClassName'" :text="className" @update="updateClassName" />
+    <element-input-text :name="'Url'" :text="url" @update="updateUrl" />
+    <element-input-text :name="'Alt'" :text="alt" @update="updateAlt" />
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
+import ElementIcon from './parts/ElementIcon'
+import ElementController from './parts/ElementController'
+import ElementInputText from './parts/ElementInputText'
 
 export default {
   name: 'ImageElement',
   props: ['id'],
+  components: {
+    ElementIcon,
+    ElementController,
+    ElementInputText
+  },
   data () {
     return {
       url: '',
-      alt: ''
+      alt: '',
+      className: ''
     }
+  },
+  computed: {
+    ...mapGetters([
+      'getSectionById'
+    ])
   },
   methods: {
     ...mapActions([
-      'updateSection',
-      'moveUpSection',
-      'moveDownSection',
-      'removeSection'
+      'updateSection'
     ]),
     update () {
       this.updateSection({
@@ -42,32 +44,39 @@ export default {
         context: {
           url: this.url,
           alt: this.alt,
+          className: this.className,
           html: this.formatHtml(),
           markdown: this.formatMarkdown()
         }
       })
     },
+    updateUrl (url) {
+      this.url = url
+      this.update()
+    },
+    updateAlt (alt) {
+      this.alt = alt
+      this.update()
+    },
+    updateClassName (className) {
+      this.className = className
+      this.update()
+    },
     formatHtml () {
-      return `<img src="${this.url}" alt="${this.alt}">`
+      return `<img class="${this.className}" src="${this.url}" alt="${this.alt}">`
     },
     formatMarkdown () {
       return `![${this.alt}](${this.url})`
     }
+  },
+  created () {
+    const context = this.getSectionById(this.id).context
+    this.url = context.url || ''
+    this.alt = context.alt || ''
+    this.className = context.className || ''
   },
   mounted () {
     this.update()
   }
 }
 </script>
-
-<style scoped>
-  .line {
-    overflow: hidden;
-  }
-  .controller {
-    float: left;
-  }
-  .editor {
-    float: left;
-  }
-</style>

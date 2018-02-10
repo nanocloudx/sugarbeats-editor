@@ -1,53 +1,71 @@
 <template>
-  <div class="line">
-    <div class="controller">
-      <p>
-        Heading1
-        <button @click="moveUpSection(id)">↑</button>
-        <button @click="removeSection(id)">x</button>
-        <button @click="moveDownSection(id)">↓</button>
-      </p>
-    </div>
-    <div class="editor">
-      <p><label><input type="text" v-model="text" @keyup="update"></label></p>
-    </div>
+  <div>
+    <element-icon :faName="'heading'" />
+    <element-controller :id="id" />
+    <element-input-text :name="'ClassName'" :text="className" @update="updateClassName" />
+    <element-input-text :name="'Text'" :text="text" @update="updateText" />
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
+import ElementIcon from './parts/ElementIcon'
+import ElementController from './parts/ElementController'
+import ElementInputText from './parts/ElementInputText'
 
 export default {
   name: 'Heading1Element',
   props: ['id'],
+  components: {
+    ElementIcon,
+    ElementController,
+    ElementInputText
+  },
   data () {
     return {
-      text: ''
+      text: '',
+      className: ''
     }
+  },
+  computed: {
+    ...mapGetters([
+      'getSectionById'
+    ])
   },
   methods: {
     ...mapActions([
-      'updateSection',
-      'moveUpSection',
-      'moveDownSection',
-      'removeSection'
+      'updateSection'
     ]),
     update () {
       this.updateSection({
         id: this.id,
         context: {
           text: this.text,
+          className: this.className,
           html: this.formatHtml(),
           markdown: this.formatMarkdown()
         }
       })
     },
+    updateText (text) {
+      this.text = text
+      this.update()
+    },
+    updateClassName (className) {
+      this.className = className
+      this.update()
+    },
     formatHtml () {
-      return `<h1>${this.text}</h1>`
+      return `<h1 class="${this.className}">${this.text}</h1>`
     },
     formatMarkdown () {
       return `# ${this.text}`
     }
+  },
+  created () {
+    const context = this.getSectionById(this.id).context
+    this.text = context.text || ''
+    this.className = context.className || ''
   },
   mounted () {
     this.update()
@@ -56,13 +74,5 @@ export default {
 </script>
 
 <style scoped>
-  .line {
-    overflow: hidden;
-  }
-  .controller {
-    float: left;
-  }
-  .editor {
-    float: left;
-  }
+
 </style>

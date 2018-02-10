@@ -16,6 +16,9 @@ export default {
   moveDownSection ({ commit }, id) {
     commit(types.MOVE_DOWN_SECTION, id)
   },
+  duplicateSection ({ commit }, id) {
+    commit(types.DUPLICATE_SECTION, id)
+  },
   removeSection ({ commit }, id) {
     commit(types.REMOVE_SECTION, id)
   }
