@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h1>しゅごいえでぃたー(実装中)</h1>
+    <h1>しゅごいえでぃたー (nightly v0.20180211.1)</h1>
     <div>
       <h2>Editor</h2>
       <append-buttons @add="addSection" />
