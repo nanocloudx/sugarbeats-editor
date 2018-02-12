@@ -15,7 +15,6 @@
 
 <script>
 export default {
-  name: 'ElementInputText',
   props: ['name', 'text'],
   data () {
     return {

@@ -12,7 +12,6 @@
 
 <script>
 export default {
-  name: 'ElementInputTextArea',
   props: ['name', 'text'],
   data () {
     return {

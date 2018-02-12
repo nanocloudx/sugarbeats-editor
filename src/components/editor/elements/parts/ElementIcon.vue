@@ -6,7 +6,6 @@
 
 <script>
 export default {
-  name: 'ElementIcon',
   props: ['faName']
 }
 </script>

@@ -1,9 +1,9 @@
 <template>
   <div>
-    <element-icon :faName="'heading'" />
+    <element-icon :faName="'paragraph'" />
     <element-controller :id="id" />
     <element-input-text :name="'ClassName'" :text="className" @update="updateClassName" />
-    <element-input-text :name="'Text'" :text="text" @update="updateText" />
+    <element-input-text-area :name="'Text'" :text="text" @update="updateText" />
   </div>
 </template>
 
@@ -11,14 +11,15 @@
 import { mapGetters, mapActions } from 'vuex'
 import ElementIcon from './parts/ElementIcon'
 import ElementController from './parts/ElementController'
+import ElementInputTextArea from './parts/ElementInputTextArea'
 import ElementInputText from './parts/ElementInputText'
 
 export default {
-  name: 'Heading1Element',
   props: ['id'],
   components: {
     ElementIcon,
     ElementController,
+    ElementInputTextArea,
     ElementInputText
   },
   data () {
@@ -56,10 +57,10 @@ export default {
       this.update()
     },
     formatHtml () {
-      return `<h1 class="${this.className}">${this.text}</h1>`
+      return `<p class="${this.className}">\n  ${this.text.replace(/\n/g, '<br>\n  ')}\n</p>`
     },
     formatMarkdown () {
-      return `# ${this.text}`
+      return `${this.text.replace(/\n/g, '  \n')}`
     }
   },
   created () {
@@ -72,7 +73,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

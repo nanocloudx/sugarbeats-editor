@@ -1,6 +1,6 @@
 <template>
   <div>
-    <element-icon :faName="'list-ul'" />
+    <element-icon :faName="'list-ol'" />
     <element-controller :id="id" />
     <element-input-text :name="'ListClassName'" :text="listClassName" @update="updateListClassName" />
     <element-input-text :name="'ItemClassName'" :text="itemClassName" @update="updateItemClassName" />
@@ -16,7 +16,6 @@ import ElementInputTextArea from './parts/ElementInputTextArea'
 import ElementInputText from './parts/ElementInputText'
 
 export default {
-  name: 'UnorderedListElement',
   props: ['id'],
   components: {
     ElementIcon,
@@ -66,11 +65,11 @@ export default {
     },
     formatHtml () {
       const items = this.text.split(/\r\n|\n/)
-      return `<ul class="${this.listClassName}">\n${items.map(item => `  <li class="${this.itemClassName}">${item}</li>`).join('\n')}\n</ul>`
+      return `<ol class="${this.listClassName}">\n${items.map(item => `  <li class="${this.itemClassName}">${item}</li>`).join('\n')}\n</ol>`
     },
     formatMarkdown () {
       const items = this.text.split(/\r\n|\n/)
-      return `${items.map(item => `- ${item}`).join('\n')}`
+      return `${items.map(item => `1. ${item}`).join('\n')}`
     }
   },
   created () {

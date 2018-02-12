@@ -14,7 +14,6 @@ import ElementController from './parts/ElementController'
 import ElementInputText from './parts/ElementInputText'
 
 export default {
-  name: 'Heading2Element',
   props: ['id'],
   components: {
     ElementIcon,
@@ -56,10 +55,10 @@ export default {
       this.update()
     },
     formatHtml () {
-      return `<h2 class="${this.className}">${this.text}</h2>`
+      return `<h3 class="${this.className}">${this.text}</h3>`
     },
     formatMarkdown () {
-      return `## ${this.text}`
+      return `### ${this.text}`
     }
   },
   created () {
@@ -72,7 +71,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

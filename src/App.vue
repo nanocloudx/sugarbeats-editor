@@ -1,106 +1,47 @@
 <template>
   <div id="app">
-    <h1>しゅごいえでぃたー (nightly v0.20180211.1)</h1>
-    <div>
-      <h2>Editor</h2>
-      <append-buttons @add="addSection" />
-      <template v-for="section in sectionList">
-        <component
-          :is="section.type"
-          :key="section.id"
-          :id="section.id"
-        />
-      </template>
+    <header-section />
+    <div class="separator">
+      <editor-scene v-show="scene === 'EDITOR' || scene === 'BOTH'" />
+      <preview-scene v-show="scene === 'PREVIEW' || scene === 'BOTH'" />
     </div>
-    <div>
-      <h2>Preview</h2>
-      <preview-buttons @preview="updatePreviewTarget" />
-      <div v-show="previewTarget === 'BROWSER'">
-        <div class="previewRender" v-html="getHtml"></div>
-      </div>
-      <div v-show="previewTarget === 'HTML'">
-        <div class="previewCode">{{ getHtml }}</div>
-      </div>
-      <div v-show="previewTarget === 'MARKDOWN'">
-        <div class="previewCode">{{ getMarkdown }}</div>
-      </div>
-      <div v-show="previewTarget === 'JSON'">
-        <div class="previewCode">{{ getJSON }}</div>
-      </div>
-    </div>
+    <footer-section />
   </div>
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions } from 'vuex'
-import AppendButtons from './components/AppendButtons'
-import PreviewButtons from './components/PreviewButtons'
-import Heading1Element from './components/elements/Heading1Element'
-import Heading2Element from './components/elements/Heading2Element'
-import Heading3Element from './components/elements/Heading3Element'
-import ParagraphElement from './components/elements/ParagraphElement'
-import LinkElement from './components/elements/LinkElement'
-import OrderedListElement from './components/elements/OrderedListElement'
-import UnorderedListElement from './components/elements/UnorderedListElement'
-import ImageElement from './components/elements/ImageElement'
+import { mapState } from 'vuex'
+import EditorScene from './components/editor/EditorScene'
+import PreviewScene from './components/preview/PreviewScene'
+import HeaderSection from './components/app/HeaderSection'
+import FooterSection from './components/app/FooterSection'
 
 export default {
   name: 'app',
   components: {
-    AppendButtons,
-    PreviewButtons,
-    Heading1Element,
-    Heading2Element,
-    Heading3Element,
-    ParagraphElement,
-    LinkElement,
-    OrderedListElement,
-    UnorderedListElement,
-    ImageElement
+    EditorScene,
+    PreviewScene,
+    HeaderSection,
+    FooterSection
   },
   computed: {
     ...mapState([
-      'sectionList',
-      'previewTarget'
-    ]),
-    ...mapGetters([
-      'getHtml',
-      'getMarkdown',
-      'getJSON'
-    ])
-  },
-  methods: {
-    ...mapActions([
-      'updatePreviewTarget',
-      'addSection'
+      'scene'
     ])
   }
 }
 </script>
 
-<style>
-html, body {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+<style lang="scss" scoped>
 #app {
   font-family: Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-.previewRender {
-  margin: 10px 0;
-  padding: 10px;
-  border: 5px solid #555;
-}
-.previewCode {
-  margin: 10px 0;
-  padding: 10px;
-  border: 5px solid #555;
-  background-color: #333;
+  background-color: #181c1f;
   color: #fff;
-  font-family: Menlo, monospace;
-  white-space: pre;
+}
+.separator {
+  display: flex;
+  justify-content: space-around;
 }
 </style>

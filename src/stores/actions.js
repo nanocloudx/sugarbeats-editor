@@ -1,6 +1,9 @@
 import * as types from './mutation-types'
 
 export default {
+  updateScene ({ commit }, scene) {
+    commit(types.UPDATE_SCENE, scene)
+  },
   updatePreviewTarget ({ commit }, target) {
     commit(types.UPDATE_PREVIEW_TARGET, target)
   },

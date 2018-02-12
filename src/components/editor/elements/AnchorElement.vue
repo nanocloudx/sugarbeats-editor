@@ -15,7 +15,6 @@ import ElementController from './parts/ElementController'
 import ElementInputText from './parts/ElementInputText'
 
 export default {
-  name: 'LinkElement',
   props: ['id'],
   components: {
     ElementIcon,

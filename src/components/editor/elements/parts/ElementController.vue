@@ -11,7 +11,6 @@
 import { mapActions } from 'vuex'
 
 export default {
-  name: 'ElementController',
   props: ['id'],
   methods: {
     ...mapActions([

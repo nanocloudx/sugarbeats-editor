@@ -2,6 +2,9 @@ import uuid from 'uuid/v4'
 import * as types from './mutation-types'
 
 export default {
+  [types.UPDATE_SCENE] (state, scene) {
+    state.scene = scene
+  },
   [types.UPDATE_PREVIEW_TARGET] (state, target) {
     state.previewTarget = target
   },
